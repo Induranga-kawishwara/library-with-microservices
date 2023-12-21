@@ -61,6 +61,17 @@ app.get("/book/:id/", (req, res) => {
       }
     });
 });
+app.delete("/bookdelete/:id", (req, res) => {
+  Book.findOneAndDelete(req.params.id)
+    .then(() => {
+      res.send("Book removed");
+    })
+    .catch((err) => {
+      if (err) {
+        throw err;
+      }
+    });
+});
 
 app.listen(4545, () => {
   console.log("Up and running -- This is our Book server");
