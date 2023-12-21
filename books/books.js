@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
+require("./book");
+const Book = mongoose.model("Book");
+
 mongoose.connect(process.env.MONGODB).then(() => console.log("connected"));
 
 app.use(bodyParser.json());
@@ -12,8 +15,29 @@ app.get("/", (req, res) => {
 });
 
 app.post("/book", (req, res) => {
-  console.log(req.body);
-  res.send("testing");
+  var newBook = {
+    title: req.body.title,
+    author: req.body.author,
+    numberPage: req.body.numberPage,
+    publisher: req.body.publisher,
+  };
+  var book = new Book(newBook);
+  book
+    .save()
+    .then(() => {
+      console.log("new book added");
+    })
+    .catch((err) => {
+      if (err) {
+        throw err;
+      }
+    });
+  res.send("yoyo added");
+});
+app.get("/books", (req, res) => {
+  Book.find().then((books) => {
+    console.log(books);
+  });
 });
 
 app.listen(4545, () => {
