@@ -41,6 +41,22 @@ app.get("/customers", (req, res) => {
       }
     });
 });
+app.get("/customer/:id", (req, res) => {
+  customers
+    .findById(req.params.id)
+    .then((customer) => {
+      if (customer) {
+        res.json(customer);
+      } else {
+        res.send("wrong id");
+      }
+    })
+    .catch((err) => {
+      if (err) {
+        throw err;
+      }
+    });
+});
 app.listen(3535, () => {
   console.log("Up and running -- This is our customer server");
 });
