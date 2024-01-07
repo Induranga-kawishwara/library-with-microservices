@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 
 mongoose.model("Order", {
   CustomerID: {
-    type: mongoose.SchemaType.ObjectId,
-    require: true,
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
   BookID: {
-    type: mongoose.SchemaType.ObjectId,
-    require: true,
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
   GotDate: {
     type: Date,
-    require: true,
+    required: true,
   },
   DeliveryDate: {
     type: Date,
-    require: true,
+    required: true,
   },
 });
